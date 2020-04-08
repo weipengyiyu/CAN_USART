@@ -1,6 +1,5 @@
 #include "sys.h"
 #include "usart.h"	  
-#include "can.h"
 ////////////////////////////////////////////////////////////////////////////////// 	 
 //如果使用ucos,则包括下面的头文件即可.
 #if SYSTEM_SUPPORT_OS
@@ -142,15 +141,8 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 			{
 			if(USART_RX_STA&0x4000)//接收到了0x0d
 				{
-					if(Res!=0x0a)
-					{
-						USART_RX_STA=0;//接收错误,重新开始
-					}
-					else 
-					{
-						USART_RX_STA|=0x8000;	//接收完成了 
-						
-					}
+				if(Res!=0x0a)USART_RX_STA=0;//接收错误,重新开始
+				else USART_RX_STA|=0x8000;	//接收完成了 
 				}
 			else //还没收到0X0D
 				{	
@@ -169,11 +161,4 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 #endif
 } 
 #endif	
-
-void UART_CAN(u8 *buf)
-{
-
-	printf(" 进入 uart_can ");
-	Can_Send_Msg(buf,8);						//发送数据
-}
 

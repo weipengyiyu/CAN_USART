@@ -94,12 +94,10 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
   	CanRxMsg RxMessage;
-//	int i=0;
+	int i=0;
     CAN_Receive(CAN1, 0, &RxMessage);
-//	for(i=0;i<8;i++)
-//	printf("rxbuf[%d]:%d\r\n",i,RxMessage.Data[i]); 
-	
-	Can_Rs232(&RxMessage);
+	for(i=0;i<8;i++)
+	printf("rxbuf[%d]:%d\r\n",i,RxMessage.Data[i]);
 }
 #endif
 
@@ -142,13 +140,7 @@ u8 Can_Receive_Msg(u8 *buf)
 	return RxMessage.DLC;	
 }
 
-void Can_Rs232(CanRxMsg *RxMessage)
-{
-	printf(" 进入 can_uart ");
-	
-	USART_SendData(USART1, RxMessage->Data[0]);
-//	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束
-}
+
 
 
 
