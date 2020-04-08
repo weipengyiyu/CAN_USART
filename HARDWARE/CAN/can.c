@@ -2,18 +2,7 @@
 #include "led.h"
 #include "delay.h"
 #include "usart.h"
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//ALIENTEK精英STM32开发板
-//CAN驱动 代码	   
-//正点原子@ALIENTEK
-//技术论坛:www.openedv.com
-//修改日期:2012/9/11
-//版本：V1.0
-//版权所有，盗版必究。
-//Copyright(C) 广州市星翼电子科技有限公司 2009-2019
-//All rights reserved									  
-//////////////////////////////////////////////////////////////////////////////////
+
 //CAN初始化
 //tsjw:重新同步跳跃时间单元.范围:CAN_SJW_1tq~ CAN_SJW_4tq
 //tbs2:时间段2的时间单元.   范围:CAN_BS2_1tq~CAN_BS2_8tq;
@@ -86,6 +75,7 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
   	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init(&NVIC_InitStructure);
 #endif
+
 	return 0;
 }   
  
@@ -93,11 +83,20 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 //中断服务函数			    
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
-  	CanRxMsg RxMessage;
-	int i=0;
-    CAN_Receive(CAN1, 0, &RxMessage);
-	for(i=0;i<8;i++)
-	printf("rxbuf[%d]:%d\r\n",i,RxMessage.Data[i]);
+  CanRxMsg RxMessage;
+//	int i=0;
+  CAN_Receive(CAN1, 0, &RxMessage);
+//	for(i=0;i<8;i++)
+//	printf("rxbuf[%d]:%d\r\n",i,RxMessage.Data[i]);
+	CAN_232(&RxMessage);
+}
+
+void CAN_232(CanRxMsg *RxMessage)
+{
+	int i;
+	printf(" can_232 ");
+	for(i = 0; i < 8; i++)
+		USART_SendData(USART1, RxMessage->Data[i]);
 }
 #endif
 

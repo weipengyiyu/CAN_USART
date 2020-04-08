@@ -21,8 +21,6 @@
 
 int main(void)
 {	
-	u8 i=0, key = 0, cnt=0;
-	u8 canbuf[8];
 	delay_init();	    	 //延时函数初始化	  
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
 	uart_init(115200);	 	//串口初始化为115200
@@ -33,14 +31,10 @@ int main(void)
 	
  	while(1)
 	{
-		key=KEY_Scan(0);
-		if(key==KEY0_PRES)//KEY0按下,发送一次数据
+		if((USART_RX_STA&0x8000)!=0)
 		{
-			for(i=0;i<8;i++)
-			{
-				canbuf[i]=cnt+i;//填充发送缓冲区
- 			}
-			Can_Send_Msg(canbuf,8);//发送8个字节 							   
+			Can_Send_Msg(USART_RX_BUF,8);//发送8个字节 		
+			USART_RX_STA=0;
 		}
 
 		delay_ms(500);
