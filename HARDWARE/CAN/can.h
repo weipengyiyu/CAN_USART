@@ -23,8 +23,6 @@ u8 Can_Send_Msg(u8* msg,u8 len);						//发送数据
 
 u8 Can_Receive_Msg(u8 *buf);							//接收数据
 
-void CAN_232(CanRxMsg *RxMessage);
-
 #endif
 
 

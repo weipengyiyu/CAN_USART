@@ -2,6 +2,7 @@
 "..\obj\main.o"
 "..\obj\stm32f10x_it.o"
 "..\obj\system_stm32f10x.o"
+"..\obj\can_uart.o"
 "..\obj\led.o"
 "..\obj\key.o"
 "..\obj\lcd.o"

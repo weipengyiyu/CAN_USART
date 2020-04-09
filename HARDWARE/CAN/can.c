@@ -1,7 +1,4 @@
-#include "can.h"
-#include "led.h"
-#include "delay.h"
-#include "usart.h"
+#include "main.h"
 
 //CAN初始化
 //tsjw:重新同步跳跃时间单元.范围:CAN_SJW_1tq~ CAN_SJW_4tq
@@ -18,7 +15,6 @@
 
 u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 {
-
 	  GPIO_InitTypeDef GPIO_InitStructure; 
 	  CAN_InitTypeDef        CAN_InitStructure;
  	  CAN_FilterInitTypeDef  CAN_FilterInitStructure;
@@ -67,8 +63,7 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
   	CAN_FilterInit(&CAN_FilterInitStructure);//滤波器初始化
 #if CAN_RX0_INT_ENABLE
 	
-	  CAN_ITConfig(CAN1,CAN_IT_FMP0,ENABLE);//FIFO0消息挂号中断允许.		    
-  
+	  CAN_ITConfig(CAN1,CAN_IT_FMP0,ENABLE);//FIFO0消息挂号中断允许.	  		
   	NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
   	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;     // 主优先级为1
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;            // 次优先级为0
@@ -80,24 +75,17 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 }   
  
 #if CAN_RX0_INT_ENABLE	//使能RX0中断
+
 //中断服务函数			    
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
   CanRxMsg RxMessage;
-//	int i=0;
+
   CAN_Receive(CAN1, 0, &RxMessage);
-//	for(i=0;i<8;i++)
-//	printf("rxbuf[%d]:%d\r\n",i,RxMessage.Data[i]);
-	CAN_232(&RxMessage);
+
+	can_uart(&RxMessage);
 }
 
-void CAN_232(CanRxMsg *RxMessage)
-{
-	int i;
-	printf(" can_232 ");
-	for(i = 0; i < 8; i++)
-		USART_SendData(USART1, RxMessage->Data[i]);
-}
 #endif
 
 //can发送一组数据(固定格式:ID为0X12,标准帧,数据帧)	

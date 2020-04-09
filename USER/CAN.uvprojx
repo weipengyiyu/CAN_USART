@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\FLASH;..\HARDWARE\TOUCH;..\HARDWARE\RS485;..\HARDWARE\CAN;..\USER</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\FLASH;..\HARDWARE\TOUCH;..\HARDWARE\RS485;..\HARDWARE\CAN;..\USER;..\USER</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -422,6 +422,11 @@
               <FileName>system_stm32f10x.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\system_stm32f10x.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\can_uart.c</FilePath>
             </File>
           </Files>
         </Group>

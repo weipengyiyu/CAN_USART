@@ -39,3 +39,5 @@
 ..\obj\main.o: ..\HARDWARE\LCD\lcd.h
 ..\obj\main.o: ..\SYSTEM\usart\usart.h
 ..\obj\main.o: ..\HARDWARE\CAN\can.h
+..\obj\main.o: can_uart.h
+..\obj\main.o: main.h
