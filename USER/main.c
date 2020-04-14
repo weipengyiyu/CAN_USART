@@ -2,7 +2,6 @@
 
 /*USART_RX_BUF存放的是字符*/
 
-
 int main(void)
 {	
 	Peripheral();
@@ -25,5 +24,3 @@ void Peripheral(void)
 	KEY_Init();				//按键初始化		
 	CAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_8tq,CAN_BS1_9tq,4,CAN_Mode_Normal);//CAN初始化波特率500Kbps  
 }
-
-
